@@ -39,6 +39,8 @@ class Vaisseau:
         self.__condition = value
         
     def append_member(self, new_member):
+        self.__crew.append(new_member)
+
 
 
         
@@ -47,16 +49,16 @@ class Vaisseau:
         has_pilote = False
         has_technician = False
         if len(crew) < 2:
-        print("L'equipage n'est pas pret pour la mission")
-    else:
-        for member in crew:
-            if member["role"] == "pilote":
-                has_pilot = True
-            elif member["role"] == "technicien":
-                has_technician = True
-    if has_pilot and has_technician:
-        print("L'equipage est pret pour la mission")
-    else:
-        print("L'equipage n'est pas pret pour la mission")
+            print("L'equipage n'est pas pret pour la mission")
+        else:
+            for member in crew:
+                if member["role"] == "pilote":
+                    has_pilot = True
+                elif member["role"] == "technicien":
+                    has_technician = True
+        if has_pilot and has_technician:
+            print("L'equipage est pret pour la mission")
+        else:
+            print("L'equipage n'est pas pret pour la mission")
 
 

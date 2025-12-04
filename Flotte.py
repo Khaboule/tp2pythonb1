@@ -5,5 +5,3 @@ class Flotte:
         self.__spaceships = []
 
     def append_spaceship(self, spaceships):
-        
-
