@@ -50,10 +50,10 @@ class Spaceship:
     def append_member(self, new_member):
         if not isinstance(new_member, Member): # Vérifier que l'objet ajouté est un membre
             print("L'objet que vous essayez d'ajouter n'est pas un objet membre")
-        else:
             return
         if len(self.__crew) < 10:
             self.__crew.append(new_member)
+            print("Le membre a bien été ajouté au vaisseau")
         else:
             print("L'équipage est déjà rempli (max 10)")
 
