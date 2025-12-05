@@ -2,7 +2,7 @@ from Member import Member
 
 
 class Operator(Member):
-    def __init__(self, first_name, last_name, gender, age, role, experience):
+    def __init__(self, first_name, last_name, gender, age, role, experience=0):
         super().__init__(first_name, last_name, gender, age)
         self.__role = role
         self.__experience = experience
@@ -32,7 +32,13 @@ class Operator(Member):
 
 
     def act(self):
-        if self.__role == "technicien":
-            print( self.__first_name, "vérifie le moteur") 
-        elif self.__role == "pilote":
-            print( self.__first_name, "vérifie ses commandes")
+        actions = {
+            "technicien": f"{self._first_name} vérifie le moteur",
+            "pilote": f"{self._first_name} vérifie ses commandes",
+            "navigateur": f"{self._first_name} trace la route",
+            "médecin": f"{self._first_name} prépare l'infirmerie",
+            "ingénieur": f"{self._first_name} inspecte les systèmes"
+        }
+        
+        action = actions.get(self._role, f"{self._first_name} effectue ses tâches")
+        print(action)

@@ -1,10 +1,11 @@
 from Member import Member
+from Operator import Operator
 
 class Spaceship:
-    def __init__(self, name, ship_type, crew, condition):
+    def __init__(self, name, ship_type, crew=None, condition="Prêt"):
         self.__name = name
         self.__ship_type = ship_type
-        self.__crew = []
+        self.__crew = crew if crew else []
         self.__condition = condition
 
 
@@ -60,20 +61,51 @@ class Spaceship:
 
         
 
-    def check_preparation(crew):
+    def check_preparation(self):
         has_pilote = False
         has_technician = False
-        if len(crew) < 2:
+        if len(self.__crew) < 2:
             print("L'equipage n'est pas pret pour la mission")
         else:
-            for member in crew:
-                if member["role"] == "pilote":
+            for member in self.__crew:
+                if member._role == "pilote":
                     has_pilot = True
-                elif member["role"] == "technicien":
+                elif member._role == "technicien":
                     has_technician = True
         if has_pilot and has_technician:
             print("L'equipage est pret pour la mission")
         else:
             print("L'equipage n'est pas pret pour la mission")
 
+        
 
+    def remove_member(self, member):
+        if not isinstance(member, Member):
+            print("L'objet que vous essayez de retirer n'est pas un membre")
+            return
+    
+        if member in self.__crew:
+            self.__crew.remove(member)
+            print(f"Le membre {member._first_name} {member._last_name} a été retiré du vaisseau")
+        else:
+            print("Ce membre ne fait pas partie de l'équipage")
+
+
+    def display(self):
+        if len(self.__crew) <= 0:
+            print("L'equipage est vide")
+        else:
+            count = 1
+            for member in self.__crew:
+                print(f"- Membre : {str(count)} ")
+                print(f"- Prénom : {member._first_name}")
+                print(f"- Nom : {member._last_name}")
+                print(f"- Genre : {member._gender}")
+                print(f"- Age : {member._age}")
+                if isinstance(member, Operator):
+                    print(f"- Role : {member._role}")
+                    print(f"- Expérience: {member._experience}")
+                else:
+                    print(f"- Rôle : Membre de base")
+                print("---------------------------------")
+                count += 1

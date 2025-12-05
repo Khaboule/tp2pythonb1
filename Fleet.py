@@ -43,6 +43,7 @@ class Fleet:
         else:
             print(f"La flotte {self.__name} contient déjà 15 vaisseaux.")
 
+
     
     def statistics(self):
 
@@ -60,11 +61,13 @@ class Fleet:
                     role = member._role
                     operators_experience_average += member._experience
                     operator_count += 1
-
                 else:
                     role = "Membre de base"
 
-                    role_repartition[role] = role_repartition.get(role, 0) + 1
+                if role in role_repartition:
+                    role_repartition[role] += 1
+                else:
+                    role_repartition[role] = 1
 
         xp = (operators_experience_average/operator_count)
         print(f"\nNombre total de membre : {total_member}")

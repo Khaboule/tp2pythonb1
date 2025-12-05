@@ -22,10 +22,10 @@ class Mentalist(Member):
 
 
     def act(self):
-        self.mana = self.mana - 20
+        self._mana = self._mana - 20
 
     def recharge_mana(self):
-        if self.mana <= 50:
-            self.mana = self.mana + 50
+        if self._mana <= 50:
+            self._mana = self._mana + 50
         else:
-            self.mana = self.mana + (self.mana - 50)
+            self._mana = self._mana + (self._mana - 50)

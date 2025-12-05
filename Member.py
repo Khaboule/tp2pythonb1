@@ -48,3 +48,6 @@ class Member:
 
     def introduce_yourself(self):
         print("Je m'appelle", self.__first_name, self.__last_name, "je suis un", self.__gender, "de", self.__age, "ans")
+
+
+
