@@ -1,10 +1,15 @@
-class Vaisseau:
-    def __init__(self,first_name, last_name, gender, age, name, ship_type, crew, condition):
-        super().__init__(first_name, last_name, gender, age)
+from Member import Member
+
+class Spaceship:
+    def __init__(self, name, ship_type, crew, condition):
         self.__name = name
         self.__ship_type = ship_type
         self.__crew = []
         self.__condition = condition
+
+
+#Getter et Setter
+
 
     @property
     def _name(self):
@@ -37,10 +42,20 @@ class Vaisseau:
     @_condition.setter
     def _condition(self, value):
         self.__condition = value
-        
-    def append_member(self, new_member):
-        self.__crew.append(new_member)
 
+
+#Méthodes
+        
+
+    def append_member(self, new_member):
+        if not isinstance(new_member, Member): # Vérifier que l'objet ajouté est un membre
+            print("L'objet que vous essayez d'ajouter n'est pas un objet membre")
+        else:
+            return
+        if len(self.__crew) < 10:
+            self.__crew.append(new_member)
+        else:
+            print("L'équipage est déjà rempli (max 10)")
 
 
         

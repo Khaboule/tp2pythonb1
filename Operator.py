@@ -1,4 +1,4 @@
-from Member import *
+from Member import Member
 
 
 class Operator(Member):
@@ -6,7 +6,10 @@ class Operator(Member):
         super().__init__(first_name, last_name, gender, age)
         self.__role = role
         self.__experience = experience
-        
+
+
+#Getter et Setter        
+
 
     @property
     def _role(self):
@@ -24,8 +27,12 @@ class Operator(Member):
     def _experience(self, value):
         self.__experience = value
 
+
+#Méthodes
+
+
     def act(self):
         if self.__role == "technicien":
-            print( self.__first_name, "vérifie ses commandes") 
-        elif self.role == "pilote":
-            print( self.__first_name, )
+            print( self.__first_name, "vérifie le moteur") 
+        elif self.__role == "pilote":
+            print( self.__first_name, "vérifie ses commandes")

@@ -6,6 +6,10 @@ class Member:
         self.__gender = gender
         self.__age = age
 
+
+#Getter et Setter
+
+
     @property
     def _first_name(self):
         return self.__first_name
@@ -38,5 +42,9 @@ class Member:
     def _age(self, value):
         self.__age = value
 
+
+#Méthodes
+
+
     def introduce_yourself(self):
-        print("Je m'appelle", self.first_name, self.last_name, "je suis un", self.gender, "de", self.age, "ans")
+        print("Je m'appelle", self.__first_name, self.__last_name, "je suis un", self.__gender, "de", self.__age, "ans")

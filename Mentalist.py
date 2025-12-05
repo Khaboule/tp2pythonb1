@@ -1,9 +1,13 @@
 from Member import *
-class Mentaliste(Member):
+class Mentalist(Member):
 
     def __init__(self, first_name, last_name, gender, age, mana):
         super().__init__(first_name, last_name, gender, age)
         self.__mana = mana
+
+
+#Getter et Setter
+
 
     @property
     def _mana(self):
@@ -12,6 +16,10 @@ class Mentaliste(Member):
     @_mana.setter
     def _mana(self, value):
         self.__mana = value
+
+
+#Méthodes
+
 
     def act(self):
         self.mana = self.mana - 20
