@@ -68,12 +68,97 @@ while True:
                 else:
                     print("Numéro invalide")
         case "1":
+            if not activ_fleet:
+                print("Aucune flotte n'est disponible")
+            else:
+                new_fleet_name = input("Entrez le nouveau nom")
+                activ_fleet._name = new_fleet_name
         case "2":
-            new_vaisseau = input("Quel est le nom du vaisseau ?")
+            if not activ_fleet:
+                print("Aucune flotte n'est disponible")
+            else:
+                new_spaceship_name = input("Quel est le nom du vaisseau ?")
+                new_spaceship_type = input("Quel est le type du vaisseau ?")
+                new_spaceship = Spaceship(new_spaceship_name, new_spaceship_type)
+                activ_fleet.append(new_spaceship)
         case "3":
-
+            if not activ_fleet:
+                print("Aucune flotte n'est disponible")
+            else:
+                for i, spaceship in enumerate(activ_fleet._spaceships, 1):
+                    print (f"[{i}] {spaceship._name}")
+                b = int(input("Choisissez le numéro du vaisseau à supprimer"))
+                if 0 <= b < len(activ_fleet._spaceships):
+                    deleted_spaceship = activ_fleet._spaceships.pop(b)
+                else:
+                    print("Numéro invalide")
         case "4":
-            new_membre = input("Quel est le nom du nouveau membre")
+            if not activ_fleet:
+                print("Aucune flotte n'est disponible")
+            else:
+                for i, spaceship in enumerate(activ_fleet._spaceships, 1):
+                    print (f"[{i}] {spaceship._name}")
+                c = int(input("Choisissez le numéro du vaisseau où le nouveau membre sera déployé"))
+                if 0 <= c < len(activ_fleet._spaceships):
+                    choosed_spaceship = activ_fleet._spaceships[c]
+                    print("\nType de membre:")
+                    print("[1] Opérateur")
+                    print("[2] Mentaliste")
+                    print("[3] Membre de base")
+                    type_member = input("Choisissez le type du nouveau membre")
+                    first_name = input("Prénom:")
+                    last_name = input("Nom:")
+                    sexe = input("Genre:")
+                    age = input("Age:")
+                    if type_member == 1:
+                        role = input("Choisissez le rôle (technicien/pilote/navigateur/médecin/ingénieur)")
+                        new_member = Operator(first_name, last_name, sexe, age, role)
+                    elif type_member == 2:
+                        new_member = Mentalist(first_name, last_name, sexe, age)
+                    else:
+                        new_member = Member(first_name, last_name, sexe, age)
+
+                    choosed_spaceship.append_member(new_member)
+                else:
+                    print("Numéro invalide")
+        case "5":
+            if not activ_fleet:
+                print("Aucune flotte n'est disponible")
+            else:
+                for i, spaceship in enumerate(activ_fleet._spaceships, 1):
+                    print (f"[{i}] {spaceship._name}")
+                d = int(input("Choisissez le numéro du vaisseau où le membre parasite se situe"))
+                if 0 <= d < len(activ_fleet._spaceships):
+                    choosed_spaceship = activ_fleet._spaceships[d]
+                    if len(choosed_spaceship) == 0:
+                        print("L'équipahe est vide")
+                    else:
+                        for i, member_ in enumerate(choosed_spaceship._crew, 1):
+                            print(f"[{i}] {member_._first_name} {member_._last_name}")
+                        member_index = int(input("Quel est le numéro du membre à supprimer ?")) - 1
+                        if 0 <= deleted_member < len(choosed_spaceship._crew):
+                            deleted_member = choosed_spaceship._crew[member_index]
+                            choosed_spaceship.remove_member(deleted_member)
+                        else:
+                            print("Numéro invalide")
+                else:
+                    print("Numéro invalide")
+        case "6":
+            if not activ_fleet:
+                print("Aucune flotte n'est disponible")
+            else:
+                for i, spaceship in enumerate(activ_fleet._spaceships, 1):
+                    print (f"[{i}] {spaceship._name}")
+                index = input("Quel est le numéro du vaisseau à afficher ?") - 1
+                if 0 <= index < len(activ_fleet._spaceships):
+                    selected_spaceship = activ_fleet._spaceships[index]
+                    selected_spaceship.display()
+                else:
+                    print("Numéro invalide")
+        case "7":
+            
+            
+
 
         case _:
             break
