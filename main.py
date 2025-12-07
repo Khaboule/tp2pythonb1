@@ -156,9 +156,41 @@ while True:
                 else:
                     print("Numéro invalide")
         case "7":
-            
-            
-
-
-        case _:
+            if not activ_fleet:
+                print("Aucune flotte n'est disponible")
+            else:
+                for i, spaceship in enumerate(activ_fleet._spaceships, 1):
+                    print (f"[{i}] {spaceship}")
+                index = int(input("Quel est le numéro du vaisseau à vérifier ?"))
+                if 0 <= index < len(activ_fleet._spaceships):
+                    selected_spaceship = activ_fleet._spaceships[index]
+                    selected_spaceship.check_preparation()
+                else:
+                    print("Numéro invalide")
+        case "8":
+            if not activ_fleet:
+                print("Aucune flotte n'est disponible")
+            else:
+                for i, spaceship in enumerate(activ_fleet._spaceships, 1):
+                    print (f"[{i}] {spaceship}")
+                spaceship_index = int(input("Quel est le numéro du vaisseau où se situe le membre à vérifier ?"))
+                if 0 <= spaceship_index < len(activ_fleet._spaceships):
+                    selected_spaceship = activ_fleet._spaceships[spaceship_index]
+                    if len(selected_spaceship._crew) == 0:
+                        print("Ce vaisseau n'a aucun membre")
+                    else:
+                        for i, member in enumerate(selected_spaceship._crew, 1):
+                            print (f"[{i}] {member}")
+                        member_index = int(input("Quel est le numéro du membre à vérifier ?"))
+                        if 0 <= member_index < len(selected_spaceship._crew):
+                            selected_member = selected_spaceship._crew[member_index]
+                            if hasattr(selected_member, 'act'):
+                                selected_member.act()
+                            else:
+                                print(f"{selected_member} ne fait pas d'action")
+                        else:
+                            print("Numéro invalide")
+                else:
+                    print("Numéro invalide")
+        case "9":
             break
