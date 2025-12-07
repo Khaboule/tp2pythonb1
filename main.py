@@ -12,7 +12,7 @@ def create_fleet():
     name_fleet = input("Quel est le nom de la nouvelle flotte ?")
     new_fleet = Fleet(name_fleet, [])
     fleets.append(new_fleet)
-    print("Flotte '{name_fleet}' créée")
+    print(f"Flotte '{name_fleet}' créée")
     return new_fleet
 
 def choose_fleet():
@@ -20,9 +20,9 @@ def choose_fleet():
         print("Aucune flotte n'existe")
         return
     print("Flotte(s) disponible(s)")
-    for i, fleets in enumerate(fleets, 1):
-        nb_spaceships = len(fleets._spaceships)
-        print(f"{i} {fleets._name} {nb_spaceships}")
+    for i, fleet in enumerate(fleets, 1):
+        nb_spaceships = len(fleet._spaceships)
+        print(f"{i} {fleet._name} {nb_spaceships}")
     choice2 = int(input("\nQuelle flotte voulez vous sélectionner ?")) - 1
     if 0 <= choice2 < len(fleets):
         return fleets[choice2]
@@ -80,14 +80,14 @@ while True:
                 new_spaceship_name = input("Quel est le nom du vaisseau ?")
                 new_spaceship_type = input("Quel est le type du vaisseau ?")
                 new_spaceship = Spaceship(new_spaceship_name, new_spaceship_type)
-                activ_fleet.append(new_spaceship)
+                activ_fleet.append_spaceship(new_spaceship)
         case "3":
             if not activ_fleet:
                 print("Aucune flotte n'est disponible")
             else:
                 for i, spaceship in enumerate(activ_fleet._spaceships, 1):
                     print (f"[{i}] {spaceship._name}")
-                b = int(input("Choisissez le numéro du vaisseau à supprimer"))
+                b = int(input("Choisissez le numéro du vaisseau à supprimer")) - 1
                 if 0 <= b < len(activ_fleet._spaceships):
                     deleted_spaceship = activ_fleet._spaceships.pop(b)
                 else:
@@ -98,7 +98,7 @@ while True:
             else:
                 for i, spaceship in enumerate(activ_fleet._spaceships, 1):
                     print (f"[{i}] {spaceship._name}")
-                c = int(input("Choisissez le numéro du vaisseau où le nouveau membre sera déployé"))
+                c = int(input("Choisissez le numéro du vaisseau où le nouveau membre sera déployé")) - 1
                 if 0 <= c < len(activ_fleet._spaceships):
                     choosed_spaceship = activ_fleet._spaceships[c]
                     print("\nType de membre:")
@@ -109,11 +109,11 @@ while True:
                     first_name = input("Prénom:")
                     last_name = input("Nom:")
                     sexe = input("Genre:")
-                    age = input("Age:")
-                    if type_member == 1:
+                    age = int(input("Age:"))
+                    if type_member == "1":
                         role = input("Choisissez le rôle (technicien/pilote/navigateur/médecin/ingénieur)")
                         new_member = Operator(first_name, last_name, sexe, age, role)
-                    elif type_member == 2:
+                    elif type_member == "2":
                         new_member = Mentalist(first_name, last_name, sexe, age)
                     else:
                         new_member = Member(first_name, last_name, sexe, age)
@@ -127,16 +127,16 @@ while True:
             else:
                 for i, spaceship in enumerate(activ_fleet._spaceships, 1):
                     print (f"[{i}] {spaceship._name}")
-                d = int(input("Choisissez le numéro du vaisseau où le membre parasite se situe"))
+                d = int(input("Choisissez le numéro du vaisseau où le membre parasite se situe")) - 1
                 if 0 <= d < len(activ_fleet._spaceships):
                     choosed_spaceship = activ_fleet._spaceships[d]
-                    if len(choosed_spaceship) == 0:
+                    if len(choosed_spaceship._crew) == 0:
                         print("L'équipahe est vide")
                     else:
                         for i, member_ in enumerate(choosed_spaceship._crew, 1):
                             print(f"[{i}] {member_._first_name} {member_._last_name}")
                         member_index = int(input("Quel est le numéro du membre à supprimer ?")) - 1
-                        if 0 <= deleted_member < len(choosed_spaceship._crew):
+                        if 0 <= member_index < len(choosed_spaceship._crew):
                             deleted_member = choosed_spaceship._crew[member_index]
                             choosed_spaceship.remove_member(deleted_member)
                         else:
@@ -149,7 +149,7 @@ while True:
             else:
                 for i, spaceship in enumerate(activ_fleet._spaceships, 1):
                     print (f"[{i}] {spaceship._name}")
-                index = input("Quel est le numéro du vaisseau à afficher ?") - 1
+                index = int(input("Quel est le numéro du vaisseau à afficher ?")) - 1
                 if 0 <= index < len(activ_fleet._spaceships):
                     selected_spaceship = activ_fleet._spaceships[index]
                     selected_spaceship.display()
@@ -160,8 +160,8 @@ while True:
                 print("Aucune flotte n'est disponible")
             else:
                 for i, spaceship in enumerate(activ_fleet._spaceships, 1):
-                    print (f"[{i}] {spaceship}")
-                index = int(input("Quel est le numéro du vaisseau à vérifier ?"))
+                    print (f"[{i}] {spaceship._name}")
+                index = int(input("Quel est le numéro du vaisseau à vérifier ?")) - 1
                 if 0 <= index < len(activ_fleet._spaceships):
                     selected_spaceship = activ_fleet._spaceships[index]
                     selected_spaceship.check_preparation()
@@ -172,22 +172,22 @@ while True:
                 print("Aucune flotte n'est disponible")
             else:
                 for i, spaceship in enumerate(activ_fleet._spaceships, 1):
-                    print (f"[{i}] {spaceship}")
-                spaceship_index = int(input("Quel est le numéro du vaisseau où se situe le membre à vérifier ?"))
+                    print (f"[{i}] {spaceship._name}")
+                spaceship_index = int(input("Quel est le numéro du vaisseau où se situe le membre à vérifier ?")) - 1
                 if 0 <= spaceship_index < len(activ_fleet._spaceships):
                     selected_spaceship = activ_fleet._spaceships[spaceship_index]
                     if len(selected_spaceship._crew) == 0:
                         print("Ce vaisseau n'a aucun membre")
                     else:
                         for i, member in enumerate(selected_spaceship._crew, 1):
-                            print (f"[{i}] {member}")
-                        member_index = int(input("Quel est le numéro du membre à vérifier ?"))
+                            print (f"[{i}] {member._first_name} {member._last_name}")
+                        member_index = int(input("Quel est le numéro du membre à vérifier ?")) - 1
                         if 0 <= member_index < len(selected_spaceship._crew):
                             selected_member = selected_spaceship._crew[member_index]
                             if hasattr(selected_member, 'act'):
                                 selected_member.act()
                             else:
-                                print(f"{selected_member} ne fait pas d'action")
+                                print(f"{selected_member._first_name} ne fait pas d'action")
                         else:
                             print("Numéro invalide")
                 else:
