@@ -7,7 +7,7 @@ from Fleet import Fleet
 fleets = []
 activ_fleet = None
 
-
+#Création d'une flotte en la renommant via le input et en l'intégrant à la liste fleets et retourne la nouvelle flotte
 def create_fleet():
     name_fleet = input("Quel est le nom de la nouvelle flotte ?")
     new_fleet = Fleet(name_fleet, [])
@@ -15,6 +15,7 @@ def create_fleet():
     print(f"Flotte '{name_fleet}' créée")
     return new_fleet
 
+#Si la liste fleets est vide alors retourne aucune flotte sinon retourne toutes les flottes numérotées de 1 à n
 def choose_fleet():
     if len(fleets) == 0:
         print("Aucune flotte n'existe")
@@ -23,6 +24,7 @@ def choose_fleet():
     for i, fleet in enumerate(fleets, 1):
         nb_spaceships = len(fleet._spaceships)
         print(f"{i} {fleet._name} {nb_spaceships}")
+#Si le numéro de flotte choisie est valide renvoie la flotte sinon renvoie numéro invalide
     choice2 = int(input("\nQuelle flotte voulez vous sélectionner ?")) - 1
     if 0 <= choice2 < len(fleets):
         return fleets[choice2]
@@ -30,12 +32,14 @@ def choose_fleet():
         print("Numéro invalide")
         return
 
+#Boucle while true pour l'affichage avec 2 parties la premiere pour gérer les flottes et la 2eme pour gerer la flotte sélectionnée
 while True:
     print("--- Gestion des flottes ---")
     print("[A] Créer une nouvelle flotte")
     print("[B] Sélectionner une flotte existante")
     print("[C] Supprimer une flotte")
 
+#Présentation des commandes possibles sur la flotte choisie
     if activ_fleet:
         print("\n[1] Renommer la flotte")
         print("[2] Ajouter un vaisseau à la flotte")
@@ -194,3 +198,7 @@ while True:
                     print("Numéro invalide")
         case "9":
             break
+
+
+#La grande majoritée du code dans l'affichage est une répétition des memes choses entre l'affichage des flottes, vaisseaux ou membres numérotées
+#ainsi que la réaffectation de variable je ne pense pas que ce soit tres utile d'expliquer chaque point
