@@ -33,6 +33,7 @@ def choose_fleet():
         return
 
 #Boucle while true pour l'affichage avec 2 parties la premiere pour gérer les flottes et la 2eme pour gerer la flotte sélectionnée
+#On accède à la 2eme partie que quand activ_fleet est valide dans quand on a une flotte de prête ça facilite l'utilisation et rend le visuel plus agréable
 while True:
     print("--- Gestion des flottes ---")
     print("[A] Créer une nouvelle flotte")
