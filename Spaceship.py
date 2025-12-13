@@ -62,7 +62,7 @@ class Spaceship:
         
 
     def check_preparation(self):
-        has_pilote = False
+        has_pilot = False
         has_technician = False
         if len(self.__crew) < 2:
             print("L'equipage n'est pas pret pour la mission")

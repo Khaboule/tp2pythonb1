@@ -1,4 +1,20 @@
 {
     "_Fleet__name": "flotte1",
-    "_Fleet__spaceships": []
+    "_Fleet__spaceships": [
+        {
+            "_Spaceship__condition": "Prêt",
+            "_Spaceship__crew": [
+                {
+                    "_Member__age": 20,
+                    "_Member__first_name": "khalil",
+                    "_Member__gender": "homme",
+                    "_Member__last_name": "serdoun",
+                    "_Operator__experience": 0,
+                    "_Operator__role": "pilote"
+                }
+            ],
+            "_Spaceship__name": "vaisseau1",
+            "_Spaceship__ship_type": "marchand"
+        }
+    ]
 }

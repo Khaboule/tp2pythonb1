@@ -48,10 +48,10 @@ def load_data(file_name):
     try:
         with open(file_name, 'r', encoding='utf-8') as file:
             data = json.load(file)
-        fleet = Fleet(data['_Fleet.__name'], [])
-        for spaceship_data in data['Fleet._spaceships']:
+        fleet = Fleet(data['_Fleet__name'], [])
+        for spaceship_data in data['_Fleet__spaceships']:
             spaceship = Spaceship(
-                spaceship_data['Spaceship.__name'],
+                spaceship_data['_Spaceship__name'],
                 spaceship_data['_Spaceship__ship_type'],
                 None,
                 spaceship_data['_Spaceship__condition']
@@ -98,9 +98,9 @@ def load_data(file_name):
 while True:
     print("--- Gestion des flottes ---")
     print("[A] Créer une nouvelle flotte")
-    print("[B] Sélectionner une flotte existante")
+    print("[B] Charger une flotte")
     print("[C] Supprimer une flotte")
-    print("[D] Charger une flotte")
+
 
 #Présentation des commandes possibles sur la flotte choisie
     if activ_fleet:
@@ -119,10 +119,6 @@ while True:
     match choice:
         case "A":
             activ_fleet = create_fleet()
-        case "B":
-            selected_fleet = choose_fleet()
-            if selected_fleet:
-                activ_fleet = selected_fleet
         case "C":
             if len(fleets) == 0:
                 print("Il n'y a aucune flotte à supprimer")
@@ -136,8 +132,8 @@ while True:
                         activ_fleet = None
                 else:
                     print("Numéro invalide")
-        case "D":
-            file_name = input("Nom du fichier à charger: ")
+        case "B":
+            file_name = input("Nom du fichier à charger (ajoutez bien le .json à la fin): ")
             loaded_fleet = load_data(file_name)
             if loaded_fleet:
                 fleets.append(loaded_fleet)
