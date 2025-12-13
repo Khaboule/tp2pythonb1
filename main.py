@@ -3,6 +3,8 @@ from Operator import Operator
 from Mentalist import Mentalist
 from Spaceship import Spaceship
 from Fleet import Fleet
+import json
+import ast
 
 fleets = []
 activ_fleet = None
@@ -32,6 +34,65 @@ def choose_fleet():
         print("Numéro invalide")
         return
 
+
+def save_data(fleet, file_name):
+    with open(file_name, 'w', encoding='utf-8') as file:
+        json.dump(fleet, file, default=lambda o: o.__dict__, sort_keys=True, indent=4, ensure_ascii=False)
+    
+    print(f"Flotte '{fleet._name}' sauvegardée dans {file_name}")
+
+def load_data(file_name):
+    import os
+    print(f"Dossier actuel : {os.getcwd()}")
+    print(f"Fichiers présents : {os.listdir('.')}")
+    try:
+        with open(file_name, 'r', encoding='utf-8') as file:
+            data = json.load(file)
+        fleet = Fleet(data['_Fleet.__name'], [])
+        for spaceship_data in data['Fleet._spaceships']:
+            spaceship = Spaceship(
+                spaceship_data['Spaceship.__name'],
+                spaceship_data['_Spaceship__ship_type'],
+                None,
+                spaceship_data['_Spaceship__condition']
+            )
+            for member_data in spaceship_data['_Spaceship__crew']:
+                if '_Operator__role' in member_data:
+                    member = Operator(
+                        member_data['_Member__first_name'],
+                        member_data['_Member__last_name'],
+                        member_data['_Member__gender'],
+                        member_data['_Member__age'],
+                        member_data['_Operator__role'],
+                        member_data['_Operator__experience']
+                    )
+                elif '_Mentalist__mana' in member_data:
+                    member = Mentalist(
+                        member_data['_Member__first_name'],
+                        member_data['_Member__last_name'],
+                        member_data['_Member__gender'],
+                        member_data['_Member__age'],
+                        member_data['_Mentalist__mana']
+                    )
+                else:
+                    member = Member(
+                        member_data['_Member__first_name'],
+                        member_data['_Member__last_name'],
+                        member_data['_Member__gender'],
+                        member_data['_Member__age']
+                    )
+                spaceship.append_member(member)
+            fleet.append_spaceship(spaceship)
+        print(f"Flotte '{fleet._name}' chargée depuis {file_name}")
+        return fleet
+    except FileNotFoundError:
+        print(f"Fichier {file_name} introuvable")
+        return None
+    except Exception as e:
+        print(f"Erreur lors du chargement : {e}")
+        return None
+
+
 #Boucle while true pour l'affichage avec 2 parties la premiere pour gérer les flottes et la 2eme pour gerer la flotte sélectionnée
 #On accède à la 2eme partie que quand activ_fleet est valide dans quand on a une flotte de prête ça facilite l'utilisation et rend le visuel plus agréable
 while True:
@@ -39,6 +100,7 @@ while True:
     print("[A] Créer une nouvelle flotte")
     print("[B] Sélectionner une flotte existante")
     print("[C] Supprimer une flotte")
+    print("[D] Charger une flotte")
 
 #Présentation des commandes possibles sur la flotte choisie
     if activ_fleet:
@@ -50,7 +112,9 @@ while True:
         print("[6] Afficher les informations d'un équipage")
         print("[7] Vérifier la préparation d'un vaisseau")
         print("[8] Vérifier l'action d'un membre d'équipage")
-    print("[9] Quitter\n")
+        print("[9] Sauvegarder la flotte")
+        print("[10] Afficher les statistiques")
+    print("[0] Quitter\n")
     choice = input("Quel est votre choix ?")
     match choice:
         case "A":
@@ -72,6 +136,12 @@ while True:
                         activ_fleet = None
                 else:
                     print("Numéro invalide")
+        case "D":
+            file_name = input("Nom du fichier à charger: ")
+            loaded_fleet = load_data(file_name)
+            if loaded_fleet:
+                fleets.append(loaded_fleet)
+                activ_fleet = loaded_fleet
         case "1":
             if not activ_fleet:
                 print("Aucune flotte n'est disponible")
@@ -198,6 +268,20 @@ while True:
                 else:
                     print("Numéro invalide")
         case "9":
+            if not activ_fleet:
+                print("Aucune flotte n'est disponible")
+            else:
+                file_name = input("Nom du fichier de sauvegarde: ")
+                if not file_name.endswith('.json'):
+                    file_name += '.json'
+                save_data(activ_fleet, file_name)
+                
+        case "10":
+            if not activ_fleet:
+                print("Aucune flotte n'est disponible")
+            else:
+                activ_fleet.statistics()
+        case "0":
             break
 
 
