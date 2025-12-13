@@ -35,12 +35,16 @@ def choose_fleet():
         return
 
 
+
+#Sauvegarde des données via json on sauvegarde la flotte avec vaisseaux, membres, roles dedans
 def save_data(fleet, file_name):
     with open(file_name, 'w', encoding='utf-8') as file:
         json.dump(fleet, file, default=lambda o: o.__dict__, sort_keys=True, indent=4, ensure_ascii=False)
     
     print(f"Flotte '{fleet._name}' sauvegardée dans {file_name}")
 
+
+#On charge le fichier avec la flotte qu'on veut 
 def load_data(file_name):
     import os
     print(f"Dossier actuel : {os.getcwd()}")
