@@ -46,13 +46,15 @@ def save_data(fleet, file_name):
 
 #On charge le fichier avec la flotte qu'on veut 
 def load_data(file_name):
-    import os
+    import os #pour que le code ai accès à nos fichiers et puisse les modifier
     print(f"Dossier actuel : {os.getcwd()}")
     print(f"Fichiers présents : {os.listdir('.')}")
     try:
+#ouvre le fichier json et le referme direct grace au with en mode lecture grave au 'r' et lit les caractes speciaux grace au utf-8
         with open(file_name, 'r', encoding='utf-8') as file:
             data = json.load(file)
         fleet = Fleet(data['_Fleet__name'], [])
+#pour chaque vaisseaux de la liste fleet spaceships on reconstruit le vaisseau donc nom type condition
         for spaceship_data in data['_Fleet__spaceships']:
             spaceship = Spaceship(
                 spaceship_data['_Spaceship__name'],
@@ -60,6 +62,7 @@ def load_data(file_name):
                 None,
                 spaceship_data['_Spaceship__condition']
             )
+#pareil mais avec les membres on récupere leurs données
             for member_data in spaceship_data['_Spaceship__crew']:
                 if '_Operator__role' in member_data:
                     member = Operator(
@@ -85,13 +88,16 @@ def load_data(file_name):
                         member_data['_Member__gender'],
                         member_data['_Member__age']
                     )
+#on ajoute le membre ensuite le vaisseau
                 spaceship.append_member(member)
             fleet.append_spaceship(spaceship)
         print(f"Flotte '{fleet._name}' chargée depuis {file_name}")
         return fleet
+#si le fichier est introuvable envoie ça
     except FileNotFoundError:
         print(f"Fichier {file_name} introuvable")
         return None
+#si une erreur se produit renvoie ça et grace au try du début le code saute direct à ça
     except Exception as e:
         print(f"Erreur lors du chargement : {e}")
         return None

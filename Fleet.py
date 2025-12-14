@@ -69,7 +69,11 @@ class Fleet:
                 else:
                     role_repartition[role] = 1
 
-        xp = (operators_experience_average/operator_count)
+        if operator_count > 0:
+            xp = operators_experience_average / operator_count
+            print(f"\nExpérience moyenne des opérateurs : {xp:.2f}")
+        else:
+            print("\nAucun opérateur dans la flotte")
         print(f"\nNombre total de membre : {total_member}")
         print(f"\nRépartition des roles")
         for role, count in role_repartition.items():

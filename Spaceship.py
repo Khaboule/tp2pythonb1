@@ -64,18 +64,22 @@ class Spaceship:
     def check_preparation(self):
         has_pilot = False
         has_technician = False
+        
         if len(self.__crew) < 2:
-            print("L'equipage n'est pas pret pour la mission")
-        else:
-            for member in self.__crew:
+            print("L'équipage n'est pas prêt pour la mission")
+            return
+        
+        for member in self.__crew:
+            if isinstance(member, Operator):
                 if member._role == "pilote":
                     has_pilot = True
                 elif member._role == "technicien":
                     has_technician = True
+        
         if has_pilot and has_technician:
-            print("L'equipage est pret pour la mission")
+            print("L'équipage est prêt pour la mission")
         else:
-            print("L'equipage n'est pas pret pour la mission")
+            print("L'équipage n'est pas prêt pour la mission")
 
         
 
